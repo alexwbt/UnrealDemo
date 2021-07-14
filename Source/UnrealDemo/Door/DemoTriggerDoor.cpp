@@ -49,7 +49,7 @@ void UDemoTriggerDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActo
         target_rotation_ = OpenAngle2;
         opened_ = true;
     }
-    else if (!in_trigger_1 && !in_trigger_2)
+    else if (opened_ && !in_trigger_1 && !in_trigger_2)
     {
         target_rotation_ = ClosedAngle;
         opened_ = false;
