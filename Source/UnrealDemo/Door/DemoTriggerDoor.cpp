@@ -4,6 +4,16 @@
 #include "DemoTriggerDoor.h"
 
 #include "Engine/TriggerBox.h"
+#include "Engine/World.h"
+
+#include "DrawDebugHelpers.h"
+
+static TAutoConsoleVariable<bool> CVarToggleDebugDoor(
+    TEXT("UnrealDemo.DemoTriggerDoor.Debug"),
+    false,
+    TEXT("DemoTriggerDoor debug display."),
+    ECVF_Default
+);
 
 // Sets default values for this component's properties
 UDemoTriggerDoor::UDemoTriggerDoor()
@@ -23,6 +33,15 @@ void UDemoTriggerDoor::BeginPlay()
 void UDemoTriggerDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+    if (CVarToggleDebugDoor->GetBool())
+    {
+        FString string = TEXT("Door State: ");
+        string += opened_ ? TEXT("Opened") : TEXT("Closed");
+
+        FVector offset(-50.0f, 0.0f, 100.0f);
+        DrawDebugString(GetWorld(), offset, string, GetOwner(), FColor::Blue, 0.0f);
+    }
 
     auto current_rotation = GetOwner()->GetActorRotation();
     auto new_rotation = FMath::RInterpTo(current_rotation, target_rotation_, DeltaTime, Speed);
