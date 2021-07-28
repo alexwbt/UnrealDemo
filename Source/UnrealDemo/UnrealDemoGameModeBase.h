@@ -4,24 +4,29 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "Blueprint/UserWidget.h"
+#include "ObjectiveWidget.h"
 #include "UnrealDemoGameModeBase.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class UNREALDEMO_API AUnrealDemoGameModeBase : public AGameModeBase
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	void StartPlay() override;
+    void StartPlay() override;
 
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UUserWidget> ObjectiveWidgetClass;
+    void CompleteDoorObjective();
+
+    UPROPERTY(EditDefaultsOnly);
+    TSubclassOf<UObjectiveWidget> objective_widget_class;
+
+    UPROPERTY(EditDefaultsOnly);
+    TSoftObjectPtr<AActor> objective_door;
 
 private:
-	UUserWidget* objective_widget_ = nullptr;
-	
+    bool completed_door_objective_ = false;
+
 };

@@ -8,43 +8,50 @@
 
 class ATriggerBox;
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class UNREALDEMO_API UDemoTriggerDoor : public UActorComponent
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-public:	
-	UDemoTriggerDoor();
+public:
+    UDemoTriggerDoor();
 
 protected:
-	virtual void BeginPlay() override;
+    virtual void BeginPlay() override;
 
-public:	
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+public:
+    virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+    /* Properties */
 
-	/* Properties */
+    UPROPERTY(EditAnywhere, NoClear);
+    float speed = 1.0f;
 
-	UPROPERTY(EditAnywhere, NoClear)
-	float Speed = 1.0f;
+    UPROPERTY(EditAnywhere, NoClear);
+    FRotator open_angle_1 = { 0.0f, 95.0f, 0.0f };
 
-	UPROPERTY(EditAnywhere, NoClear)
-	FRotator OpenAngle1 = { 0.0f, 95.0f, 0.0f };
+    UPROPERTY(EditAnywhere, NoClear);
+    ATriggerBox* trigger_box_1;
 
-	UPROPERTY(EditAnywhere, NoClear)
-	ATriggerBox* TriggerBox1;
+    UPROPERTY(EditAnywhere, NoClear);
+    FRotator open_angle_2 = { 0.0f, -95.0f, 0.0f };
 
-	UPROPERTY(EditAnywhere, NoClear)
-	FRotator OpenAngle2 = { 0.0f, -95.0f, 0.0f };
+    UPROPERTY(EditAnywhere, NoClear);
+    ATriggerBox* trigger_box_2;
 
-	UPROPERTY(EditAnywhere, NoClear)
-	ATriggerBox* TriggerBox2;
+    UPROPERTY(EditAnywhere, NoClear);
+    FRotator closed_angle = FRotator::ZeroRotator;
 
-	UPROPERTY(EditAnywhere, NoClear)
-	FRotator ClosedAngle = FRotator::ZeroRotator;
+    /* Events */
+
+    DECLARE_EVENT(FDemoTriggerDoor, FPlayerWentThroughDoor);
+    FPlayerWentThroughDoor& OnPlayerGoThrough() { return through_door_event_; }
 
 private:
-	FRotator target_rotation_ = FRotator::ZeroRotator;
-	bool opened_ = false;
-	bool locked_ = false;
+    FPlayerWentThroughDoor through_door_event_;
+    bool was_in_both_trigger_box_ = false;
+
+    FRotator target_rotation_ = FRotator::ZeroRotator;
+    bool opened_ = false;
+    bool locked_ = false;
 };
