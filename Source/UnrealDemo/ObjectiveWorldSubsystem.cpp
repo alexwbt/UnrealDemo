@@ -22,19 +22,21 @@ void UObjectiveWorldSubsystem::InitObjectives()
 
 void UObjectiveWorldSubsystem::ShowObjective()
 {
-    if (objective_count_ > 0)
+    if (objective_count_ > 0 && objectives_.IsValidIndex(0))
     {
-        objective_widget_->SetObjective(objectives_[0]);
+        objective_widget_->RemoveFromViewport();
         objective_widget_->AddToViewport();
+        objective_widget_->SetObjective(objectives_[0]);
     }
 }
 
 void UObjectiveWorldSubsystem::CompleteObjective()
 {
-    if (objective_count_ > 0)
+    if (objective_count_ > 0 && objectives_.IsValidIndex(0))
     {
-        objective_widget_->SetObjective(objectives_[0] + "(Completed)");
+        objective_widget_->RemoveFromViewport();
         objective_widget_->AddToViewport();
+        objective_widget_->SetObjective(objectives_[0] + "(Completed)");
 
         objectives_.RemoveAt(0);
         objective_count_--;
