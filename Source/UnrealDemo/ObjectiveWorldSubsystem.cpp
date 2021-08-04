@@ -22,7 +22,7 @@ void UObjectiveWorldSubsystem::InitObjectives()
 
 void UObjectiveWorldSubsystem::ShowObjective()
 {
-    if (objective_count_ > 0 && objectives_.IsValidIndex(0))
+    if (objective_count_ > 0)
     {
         objective_widget_->RemoveFromViewport();
         objective_widget_->AddToViewport();
@@ -32,7 +32,7 @@ void UObjectiveWorldSubsystem::ShowObjective()
 
 void UObjectiveWorldSubsystem::CompleteObjective()
 {
-    if (objective_count_ > 0 && objectives_.IsValidIndex(0))
+    if (objective_count_ > 0)
     {
         objective_widget_->RemoveFromViewport();
         objective_widget_->AddToViewport();
