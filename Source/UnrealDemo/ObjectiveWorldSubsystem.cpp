@@ -24,7 +24,7 @@ void UObjectiveWorldSubsystem::ShowObjective()
 {
     if (objective_count_ > 0)
     {
-        objective_widget_->RemoveFromViewport();
+        //objective_widget_->RemoveFromViewport();
         objective_widget_->AddToViewport();
         objective_widget_->SetObjective(objectives_[0]);
     }
@@ -34,7 +34,7 @@ void UObjectiveWorldSubsystem::CompleteObjective()
 {
     if (objective_count_ > 0)
     {
-        objective_widget_->RemoveFromViewport();
+        //objective_widget_->RemoveFromViewport();
         objective_widget_->AddToViewport();
         objective_widget_->SetObjective(objectives_[0] + "(Completed)");
 

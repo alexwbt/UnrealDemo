@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "../HealthComponent.h"
 #include "DemoPlayerCharacterBase.generated.h"
 
 UCLASS()
@@ -28,4 +29,11 @@ public:
 
 	virtual void FellOutOfWorld(const class UDamageType& damage_type) override;
 
+	virtual float TakeDamage(float amount, const FDamageEvent& event, AController* instigator, AActor* causer) override;
+
+	virtual void OnDeath();
+
+private:
+	UPROPERTY(EditAnywhere)
+	UHealthComponent* health_component = nullptr;
 };

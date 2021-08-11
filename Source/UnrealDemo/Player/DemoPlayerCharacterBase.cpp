@@ -12,6 +12,7 @@ ADemoPlayerCharacterBase::ADemoPlayerCharacterBase()
     // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
 
+    health_component = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 }
 
 // Called when the game starts or when spawned
@@ -37,10 +38,29 @@ void ADemoPlayerCharacterBase::SetupPlayerInputComponent(UInputComponent* Player
 
 void ADemoPlayerCharacterBase::FellOutOfWorld(const UDamageType& damage_type)
 {
+    OnDeath();
+}
+
+float ADemoPlayerCharacterBase::TakeDamage(float amount, const FDamageEvent& event, AController* instigator, AActor* causer)
+{
+    auto damage = Super::TakeDamage(amount, event, instigator, causer);
+    UE_LOG(LogTemp, Warning, TEXT("Player took damage: %.2f"), damage);
+    if (health_component)
+    {
+        health_component->TakeDamage(damage);
+        if (health_component->IsDead())
+        {
+            OnDeath();
+        }
+    }
+    return damage;
+}
+
+void ADemoPlayerCharacterBase::OnDeath()
+{
     auto* player_controller = GetController<ADemoPlayerControllerBase>();
     if (player_controller)
     {
         player_controller->RestartLevel();
     }
 }
-
