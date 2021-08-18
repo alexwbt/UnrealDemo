@@ -23,4 +23,10 @@ public:
 
     void SetObjective(FString description);
 
+    UFUNCTION(BlueprintCallable)
+    void Hide();
+
+    UFUNCTION(BlueprintCallable)
+    void Show();
+
 };

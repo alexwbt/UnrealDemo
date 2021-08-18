@@ -25,7 +25,6 @@ void UDealDamageComponent::BeginPlay()
 	Super::BeginPlay();
 }
 
-
 // Called every frame
 void UDealDamageComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {

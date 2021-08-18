@@ -44,6 +44,8 @@ public:
         int32 other_body_index
     );
 
+    //virtual void O
+
 protected:
     // Called when the game starts
     virtual void BeginPlay() override;

@@ -12,3 +12,13 @@ void UObjectiveWidget::SetObjective(FString description)
         ObjectiveDescription->SetText(FText::FromString(description));
     }
 }
+
+void UObjectiveWidget::Hide()
+{
+    SetVisibility(ESlateVisibility::Hidden);
+}
+
+void UObjectiveWidget::Show()
+{
+    SetVisibility(ESlateVisibility::Visible);
+}
