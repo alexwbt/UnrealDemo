@@ -15,7 +15,7 @@ void UObjectiveWidget::SetObjective(FString description)
 
 void UObjectiveWidget::Hide()
 {
-    SetVisibility(ESlateVisibility::Hidden);
+    SetVisibility(ESlateVisibility::Hidden); 
 }
 
 void UObjectiveWidget::Show()
