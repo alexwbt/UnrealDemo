@@ -38,14 +38,14 @@ void ADemoPlayerCharacterBase::SetupPlayerInputComponent(UInputComponent* Player
 
 void ADemoPlayerCharacterBase::FellOutOfWorld(const UDamageType& damage_type)
 {
-    OnDeath();
+    RestartLevel();
 }
 
 float ADemoPlayerCharacterBase::TakeDamage(float amount, const FDamageEvent& event, AController* instigator, AActor* causer)
 {
     auto damage = Super::TakeDamage(amount, event, instigator, causer);
     UE_LOG(LogTemp, Warning, TEXT("Player took damage: %.2f"), damage);
-    if (health_component)
+    if (health_component && !health_component->IsDead())
     {
         health_component->TakeDamage(damage);
         if (health_component->IsDead())
@@ -57,6 +57,18 @@ float ADemoPlayerCharacterBase::TakeDamage(float amount, const FDamageEvent& eve
 }
 
 void ADemoPlayerCharacterBase::OnDeath()
+{
+    GetWorld()->GetTimerManager().SetTimer(death_timer_, this, &ADemoPlayerCharacterBase::RestartLevel, 2.0f, false);
+
+    auto* player_controller = GetController<ADemoPlayerControllerBase>();
+    if (player_controller)
+    {
+        player_controller->DisableInput(player_controller);
+    }
+}
+
+
+void ADemoPlayerCharacterBase::RestartLevel() const
 {
     auto* player_controller = GetController<ADemoPlayerControllerBase>();
     if (player_controller)

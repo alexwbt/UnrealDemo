@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "DealDamageComponent.generated.h"
 
+class UCapsuleComponent;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class UNREALDEMO_API UDealDamageComponent : public UActorComponent
@@ -17,7 +18,13 @@ public:
     float damage_per_tick = 0.5f;
 
     UPROPERTY(EditAnywhere, NoClear)
-    class UCapsuleComponent* trigger_capsule;
+        UCapsuleComponent* trigger_capsule;
+
+    UFUNCTION(BlueprintCallable)
+    UCapsuleComponent* GetTriggerCapsule() const
+    {
+        return trigger_capsule;
+    }
 
 private:
     TArray<class ADemoPlayerCharacterBase*> players_;

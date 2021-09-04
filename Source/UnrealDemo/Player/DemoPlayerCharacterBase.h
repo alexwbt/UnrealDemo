@@ -33,7 +33,24 @@ public:
 
 	virtual void OnDeath();
 
+	UFUNCTION(BlueprintCallable)
+	bool IsAlive() const
+	{
+		return health_component && !health_component->IsDead();
+	}
+
+	UFUNCTION(BlueprintCallable)
+	float GetCurrentHealth() const
+	{
+		return health_component ? health_component->current_health : 0.0f;
+	}
+
+	UFUNCTION()
+	void RestartLevel() const;
+
 private:
 	UPROPERTY(EditAnywhere)
 	UHealthComponent* health_component = nullptr;
+
+	FTimerHandle death_timer_;
 };
