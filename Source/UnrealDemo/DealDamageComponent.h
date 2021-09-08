@@ -18,7 +18,7 @@ public:
     float damage_per_tick = 0.5f;
 
     UPROPERTY(EditAnywhere, NoClear)
-        UCapsuleComponent* trigger_capsule;
+    UCapsuleComponent* trigger_capsule;
 
     UFUNCTION(BlueprintCallable)
     UCapsuleComponent* GetTriggerCapsule() const
