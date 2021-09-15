@@ -20,6 +20,7 @@ void ADemoPlayerCharacterBase::BeginPlay()
 {
     Super::BeginPlay();
 
+    PC = GetWorld()->GetFirstPlayerController();
 }
 
 // Called every frame
@@ -75,4 +76,13 @@ void ADemoPlayerCharacterBase::RestartLevel() const
     {
         player_controller->RestartLevel();
     }
+}
+
+void ADemoPlayerCharacterBase::HandleItemCollected()
+{
+    ItemsCollected++;
+
+    PC->PlayerCameraManager->StartCameraShake(CamShake, 1.0f);
+
+    ItemCollected();
 }
